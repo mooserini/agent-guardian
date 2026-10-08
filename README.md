@@ -1,6 +1,6 @@
-# Agent Guardian
+# Shadow Sepulcher
 
-Agent Guardian is an independent macOS menu-bar sentry for human-approved changes to a Hermes Agent `config.yaml` file, plus read-only visibility into Hermes pending-skill and active-skill filesystem state.
+Shadow Sepulcher is an independent macOS menu-bar sentry for human-approved changes to a Hermes Agent `config.yaml` file, plus read-only visibility into Hermes pending-skill and active-skill filesystem state.
 
 It preserves an exact approved snapshot outside Hermes, detects raw and semantic changes, explains the relevant settings with official Hermes documentation, and waits for a human to accept, review, clarify, or reject the change. Reject restores the last approved bytes immediately.
 
