@@ -95,7 +95,34 @@ Rules:
   default watchlist config.
 - UI: enrolled-target list view; changelog viewer. No new permissions.
 
-## 5. Out of scope (Phase 3 or later)
+## 5. Explainer (adapted from Hermes Guardian)
+
+The existing three-tier explainer survives the fork. Only its grounding
+source changes.
+
+- **Tier 1 — deterministic.** Simple changes get a built-in plain
+  explanation ("3 lines added, 1 removed in `~/AGENTS.md`"). No model
+  involved.
+- **Tier 2 — grounded.** For Hermes config, grounding meant installed vs.
+  hosted Hermes docs. For Agent Guardian, grounding is the watched file's
+  own history plus the diff itself. There is no hosted doc to compare
+  against; the file's past is the reference.
+- **Tier 3 — LLM, provider-agnostic.** A stateless request goes out —
+  diff plus grounding over stdin, never args — and a plain-language
+  explanation comes back. The backend is just "an API pointed at a model":
+  OpenRouter free tier via API key, local LM Studio (Bionic), any
+  OpenAI-compatible endpoint. Same theory as OpenWhispr: local or cloud
+  doesn't matter, the shape is the same.
+
+Design principle: **explanations are advisory; receipts are authoritative.**
+The explainer doesn't have to get it right every time. The changelog is
+the source of truth. A poor explanation gets revisited later; a missing
+receipt doesn't get a second chance.
+
+The existing safety properties carry over: stateless, no agent constructed,
+no tools loaded, no history written, secrets never in the process arg list.
+
+## 6. Out of scope (Phase 3 or later)
 
 - No syncing, no auto-remediation, no writing to watched targets. Ever
   in this phase.
