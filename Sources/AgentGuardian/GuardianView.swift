@@ -41,7 +41,7 @@ struct GuardianView: View {
                     .padding(.horizontal, 16)
                     .padding(.bottom, 10)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .accessibilityLabel("Guardian error")
+                    .accessibilityLabel("Sepulcher error")
                     .accessibilityValue(message)
             }
 
@@ -59,7 +59,7 @@ struct GuardianView: View {
                 moreMenu
                 Spacer(minLength: 8)
                 Button("Quit") { NSApplication.shared.terminate(nil) }
-                    .help("Quit Agent Guardian")
+                    .help("Quit Shadow Sepulcher")
             }
             .buttonStyle(.borderless)
             .font(.caption)
@@ -84,7 +84,7 @@ struct GuardianView: View {
             Button("Start maintenance") { model.beginHermesUpdate() }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text("Guardian will seal the currently approved configuration, group expected Hermes update writes, preserve every observed proposal, and require final approval before the snapshot advances.")
+            Text("Sepulcher will seal the currently approved configuration, group expected Hermes update writes, preserve every observed proposal, and require final approval before the snapshot advances.")
         }
         .confirmationDialog(
             "Record current skill state?",
@@ -125,7 +125,7 @@ struct GuardianView: View {
 
     private var enrollment: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Guardian will validate this YAML and preserve an independently verified approved snapshot. Nothing is accepted automatically.")
+            Text("Sepulcher will validate this YAML and preserve an independently verified approved snapshot. Nothing is accepted automatically.")
                 .font(.subheadline)
                 .foregroundStyle(.primary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -197,9 +197,9 @@ struct GuardianView: View {
                 monitoredFileRowContent
             }
             .buttonStyle(.plain)
-            .help("Open this file in Guardian's resizable window")
+            .help("Open this file in Sepulcher's resizable window")
             .accessibilityLabel("Open monitored file \(model.sourceURL.lastPathComponent) in window")
-            .accessibilityHint("Opens the full Guardian window with this file's history, receipts, and review details")
+            .accessibilityHint("Opens the full Sepulcher window with this file's history, receipts, and review details")
             .accessibilityValue("Approved")
         } else {
             monitoredFileRowContent
@@ -329,7 +329,7 @@ struct GuardianView: View {
                 }
                 .buttonStyle(.bordered)
                 .help("Stores a local integrity baseline. This does not approve pending skill writes or change any skill files.")
-                .accessibilityHint("Stores only local Guardian state. It does not approve pending skill writes or change skills.")
+                .accessibilityHint("Stores only local Sepulcher state. It does not approve pending skill writes or change skills.")
             }
         }
         .padding(10)
@@ -417,7 +417,7 @@ struct GuardianView: View {
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(.secondary)
             Toggle("Open review window automatically", isOn: $model.attentionWindowEnabled)
-                .help("Open Guardian for a new proposal or a still-pending skill review at login")
+                .help("Open Sepulcher for a new proposal or a still-pending skill review at login")
             Toggle("Play attention sound", isOn: $model.attentionSoundEnabled)
                 .help("Play a sound when a newly proposed file version needs a decision")
         }
@@ -436,8 +436,8 @@ struct GuardianView: View {
         } label: {
             Label("More", systemImage: "ellipsis.circle")
         }
-        .help("Exceptional Guardian actions and app behavior")
-        .accessibilityLabel("More Guardian actions")
+        .help("Exceptional Sepulcher actions and app behavior")
+        .accessibilityLabel("More Sepulcher actions")
     }
 
     private var appBehaviorMenu: some View {
@@ -464,8 +464,8 @@ struct GuardianView: View {
         } label: {
             Label("App Behavior", systemImage: "gearshape")
         }
-        .help("Guardian behavior that is not a notification or approval rule")
-        .accessibilityLabel("Guardian app behavior")
+        .help("Sepulcher behavior that is not a notification or approval rule")
+        .accessibilityLabel("Sepulcher app behavior")
     }
 
     private var maintenanceActiveView: some View {
@@ -477,7 +477,7 @@ struct GuardianView: View {
                 Text("Started \(maintenance.manifest.startedAt.formatted(date: .abbreviated, time: .shortened))")
                     .font(.caption)
                     .foregroundStyle(.secondary)
-                Text("Guardian sealed the exact approved configuration and is recording distinct rewrites without repeatedly interrupting you.")
+                Text("Sepulcher sealed the exact approved configuration and is recording distinct rewrites without repeatedly interrupting you.")
                     .font(.subheadline)
                     .fixedSize(horizontal: false, vertical: true)
                 Text("\(model.maintenanceObservedCount) distinct intermediate proposal\(model.maintenanceObservedCount == 1 ? "" : "s") observed")
@@ -508,7 +508,7 @@ struct GuardianView: View {
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
-            Label("Reject restores the exact pre-update bytes. The updated Hermes version may require a newer configuration schema; Guardian has not proven runtime compatibility.", systemImage: "exclamationmark.triangle")
+            Label("Reject restores the exact pre-update bytes. The updated Hermes version may require a newer configuration schema; Sepulcher has not proven runtime compatibility.", systemImage: "exclamationmark.triangle")
                 .font(.caption)
                 .foregroundStyle(.orange)
                 .fixedSize(horizontal: false, vertical: true)

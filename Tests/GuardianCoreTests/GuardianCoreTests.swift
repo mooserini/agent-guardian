@@ -80,7 +80,7 @@ final class GuardianCoreTests: XCTestCase {
         XCTAssertTrue(explanation.contains("string value “never”"))
         XCTAssertEqual(
             TypeTransitionGuard.reviewWarning(for: [change]),
-            "Value type changed for compression.idle_compact_after_seconds. Guardian will not assume the new representation behaves like the approved one."
+            "Value type changed for compression.idle_compact_after_seconds. Sepulcher will not assume the new representation behaves like the approved one."
         )
     }
 

@@ -12,7 +12,7 @@ public enum HermesStatelessClarifierError: Error, LocalizedError, Equatable {
         case .unavailable:
             return "The Hermes stateless runtime is unavailable."
         case .invalidPayload:
-            return "Guardian could not prepare the clarification request."
+            return "Sepulcher could not prepare the clarification request."
         case .timedOut:
             return "The Hermes stateless clarification timed out."
         case let .failed(status):

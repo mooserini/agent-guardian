@@ -1,5 +1,8 @@
 # Agent Guardian — vNext Candidate Brief
 
+> [!NOTE]
+> **Historical.** This is the implementation brief for the skill-state indicators, written for an isolated local candidate before the project was published and renamed Shadow Sepulcher. Its no-remote, no-PR boundaries applied to that candidate only. The indicators it describes are implemented; current direction lives in the [receipt-only witness decision](shadow-sepulcher-decision-2026-10-08.md).
+
 ## Mission
 
 Build a local candidate of the existing **Agent Guardian** macOS menu-bar app. Its user-facing name is now **Agent Guardian** because its authority boundary has grown beyond one `config.yaml` file.

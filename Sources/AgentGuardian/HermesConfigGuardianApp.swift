@@ -22,7 +22,7 @@ struct AgentGuardianApp: App {
 
     var body: some Scene {
         #if GUARDIAN_UI_TEST_WINDOW
-        WindowGroup("Agent Guardian — Viability Test") {
+        WindowGroup("Shadow Sepulcher — Viability Test") {
             GeometryReader { proxy in
                 GuardianView(model: model)
                     .frame(width: proxy.size.width, height: proxy.size.height, alignment: .topLeading)
@@ -33,7 +33,7 @@ struct AgentGuardianApp: App {
         .defaultSize(width: 440, height: 520)
         .windowResizability(.contentMinSize)
         #else
-        MenuBarExtra("Agent Guardian", systemImage: model.headlineSymbol) {
+        MenuBarExtra("Shadow Sepulcher", systemImage: model.headlineSymbol) {
             GuardianMenuBarView(
                 model: model,
                 onOpenWindow: reviewWindowController.show
@@ -90,7 +90,7 @@ private final class GuardianReviewWindowController {
                 rootView: GuardianView(model: model)
             )
             let created = NSWindow(contentViewController: hostingController)
-            created.title = "Agent Guardian"
+            created.title = "Shadow Sepulcher"
             created.styleMask = [.titled, .closable, .miniaturizable, .resizable]
             created.setContentSize(NSSize(width: 440, height: 520))
             created.minSize = NSSize(width: 360, height: 360)

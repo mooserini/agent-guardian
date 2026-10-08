@@ -71,7 +71,7 @@ public enum DocumentationError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .unexpectedResponse: return "The Hermes documentation server returned an unexpected response."
-        case .corpusTooLarge: return "The hosted documentation exceeded Guardian's 10 MB safety limit."
+        case .corpusTooLarge: return "The hosted documentation exceeded Sepulcher's 10 MB safety limit."
         case .invalidText: return "The hosted documentation was not valid UTF-8 text."
         }
     }
@@ -129,7 +129,7 @@ public actor HermesDocumentationClient {
                 )
             }
         } catch {
-            warning = "Hosted documentation refresh failed; Guardian used available local or cached evidence. \(error.localizedDescription)"
+            warning = "Hosted documentation refresh failed; Sepulcher used available local or cached evidence. \(error.localizedDescription)"
         }
 
         let excerpts = merge(installed: installed, hosted: hosted)

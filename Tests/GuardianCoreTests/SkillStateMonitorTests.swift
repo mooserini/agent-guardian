@@ -62,7 +62,7 @@ final class SkillStateMonitorTests: XCTestCase {
         XCTAssertEqual(proposals.map(\.id), ["abc123", "broken"])
         XCTAssertEqual(proposals.first?.summary, "batch(1 ops: create) on example-skill")
         XCTAssertTrue(proposals.first?.recordText?.contains("example-skill") == true)
-        XCTAssertEqual(proposals.last?.issue, "Guardian could not read this pending record.")
+        XCTAssertEqual(proposals.last?.issue, "Sepulcher could not read this pending record.")
         XCTAssertEqual(try directoryFingerprint(pending), before)
     }
 

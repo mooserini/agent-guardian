@@ -6,13 +6,13 @@
 
 ## Decision
 
-Agent Guardian is a best-effort, receipt-only witness of observed configuration
+Shadow Sepulcher is a best-effort, receipt-only witness of observed configuration
 changes. Its single purpose is recording: preserve best-effort evidence of
 changes that could otherwise silently alter an agent's behavior. It must never
 restore, rewrite, reconfigure, or enforce the contents of a watched target.
 
 Replace the **Restore** concept with **Send for investigation**. This is the
-boundary between Guardian's recording role and a separately authorized
+boundary between Sepulcher's recording role and a separately authorized
 investigation by another agent. The owner selects recorded changes, previews a
 secret-redacted evidence packet, explicitly chooses the recipient agent, and
 approves that handoff. The handoff authorizes
@@ -98,7 +98,7 @@ external disclosure. Redaction is required before preview and transmission;
 the preview is an additional owner review, not a claim that automated redaction
 can recognize every secret.
 
-Original receipts remain authoritative for what Guardian observed.
+Original receipts remain authoritative for what Sepulcher observed.
 Investigator findings and generated explanations are advisory and must remain
 distinguishable from those receipts. They must not replace or rewrite the
 original evidence.
@@ -116,7 +116,7 @@ all writes, prevention of changes, or proof of why a configuration changed.
 
 ## Acceptance criteria for future implementation
 
-- Every Guardian action leaves watched target contents unchanged, including
+- Every Sepulcher action leaves watched target contents unchanged, including
   legacy restore, reject, and maintenance paths. The investigation action
   replaces restoration rather than invoking it under a new label.
 - If changes A, B, and C are observed while the notice for A remains pending,
