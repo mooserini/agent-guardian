@@ -112,7 +112,10 @@ source changes.
   explanation comes back. The backend is just "an API pointed at a model":
   OpenRouter free tier via API key, local LM Studio (Bionic), any
   OpenAI-compatible endpoint. Same theory as OpenWhispr: local or cloud
-  doesn't matter, the shape is the same.
+  doesn't matter, the shape is the same. Endpoint and key are interchangeable
+  at this point — switching backends is just a different endpoint + key pair.
+  The only drift is between chat-completions and the other completion endpoint
+  flavors, and that's mostly resolved by the endpoint itself.
 
 Design principle: **explanations are advisory; receipts are authoritative.**
 The explainer doesn't have to get it right every time. The changelog is
