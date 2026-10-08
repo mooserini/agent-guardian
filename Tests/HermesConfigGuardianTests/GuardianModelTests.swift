@@ -1,5 +1,5 @@
 import XCTest
-@testable import HermesConfigGuardian
+@testable import AgentGuardian
 
 @MainActor
 final class GuardianModelTests: XCTestCase {

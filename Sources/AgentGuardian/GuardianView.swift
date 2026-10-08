@@ -59,7 +59,7 @@ struct GuardianView: View {
                 moreMenu
                 Spacer(minLength: 8)
                 Button("Quit") { NSApplication.shared.terminate(nil) }
-                    .help("Quit Hermes Guardian")
+                    .help("Quit Agent Guardian")
             }
             .buttonStyle(.borderless)
             .font(.caption)

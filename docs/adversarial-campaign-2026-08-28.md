@@ -2,7 +2,7 @@
 
 ## Verdict
 
-Hermes Config Guardian's core authority boundary is viable. Across five model-generated scenarios, Guardian preserved the approved source of truth, restored exact bytes after rejection, failed closed on invalid YAML, and refused a deterministic stale-proposal approval after the file was atomically replaced between Review and Accept.
+Agent Guardian's core authority boundary is viable. Across five model-generated scenarios, Guardian preserved the approved source of truth, restored exact bytes after rejection, failed closed on invalid YAML, and refused a deterministic stale-proposal approval after the file was atomically replaced between Review and Accept.
 
 The product is not ship-ready. Interpretation, immediate detection, structural presentation, and audit completeness need repair before a human should rely on every explanation or assume every refused mutation leaves a receipt.
 

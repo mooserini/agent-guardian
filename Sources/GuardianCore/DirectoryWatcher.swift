@@ -32,7 +32,7 @@ public final class DirectoryWatcher: @unchecked Sendable {
         self.watchAncestorDirectory = watchAncestorDirectory
         self.debounceInterval = debounceInterval
         self.onChange = onChange
-        self.queue = DispatchQueue(label: "org.hermesconfigguardian.watcher", qos: .utility)
+        self.queue = DispatchQueue(label: "org.agentguardian.watcher", qos: .utility)
     }
 
     deinit {

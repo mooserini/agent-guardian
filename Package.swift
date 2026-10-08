@@ -3,11 +3,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "HermesConfigGuardian",
+    name: "AgentGuardian",
     platforms: [.macOS(.v14)],
     products: [
         .library(name: "GuardianCore", targets: ["GuardianCore"]),
-        .executable(name: "HermesConfigGuardian", targets: ["HermesConfigGuardian"]),
+        .executable(name: "AgentGuardian", targets: ["AgentGuardian"]),
     ],
     dependencies: [
         .package(url: "https://github.com/jpsim/Yams.git", from: "6.2.2"),
@@ -18,7 +18,7 @@ let package = Package(
             dependencies: ["Yams"]
         ),
         .executableTarget(
-            name: "HermesConfigGuardian",
+            name: "AgentGuardian",
             dependencies: ["GuardianCore"]
         ),
         .testTarget(
@@ -26,8 +26,8 @@ let package = Package(
             dependencies: ["GuardianCore"]
         ),
         .testTarget(
-            name: "HermesConfigGuardianTests",
-            dependencies: ["HermesConfigGuardian", "GuardianCore"]
+            name: "AgentGuardianTests",
+            dependencies: ["AgentGuardian", "GuardianCore"]
         ),
     ],
     swiftLanguageModes: [.v5]

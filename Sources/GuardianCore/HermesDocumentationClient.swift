@@ -197,7 +197,7 @@ public actor HermesDocumentationClient {
         var request = URLRequest(url: hostedCorpusURL)
         request.timeoutInterval = 20
         request.setValue("text/plain", forHTTPHeaderField: "Accept")
-        request.setValue("HermesConfigGuardian/0.1", forHTTPHeaderField: "User-Agent")
+        request.setValue("AgentGuardian/0.1", forHTTPHeaderField: "User-Agent")
         if let etag = metadata?.etag { request.setValue(etag, forHTTPHeaderField: "If-None-Match") }
         if let modified = metadata?.lastModified { request.setValue(modified, forHTTPHeaderField: "If-Modified-Since") }
 

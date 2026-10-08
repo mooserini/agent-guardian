@@ -2,7 +2,7 @@
 
 ## Verdict
 
-Hermes Config Guardian completed its first trial against a real, actively used
+Agent Guardian completed its first trial against a real, actively used
 `config.yaml`. It detected both a meaningful wizard change and a byte-only
 rewrite, preserved the independently approved snapshot, and restored the exact
 approved bytes after human rejection.
@@ -112,14 +112,14 @@ unmodified source artifacts without publishing the pixels.
 The installed application opted into macOS Launch at Login from its stable
 location under the human operator's Applications directory. macOS presented a
 normal login-item notification and opened the relevant System Settings page,
-where Hermes Config Guardian was visibly listed and could be disabled by the
+where Agent Guardian was visibly listed and could be disabled by the
 human.
 
 The operating system's background-task record independently reported the item
 as `enabled`, `allowed`, and `notified`, with bundle identifier:
 
 ```text
-org.hermesconfigguardian.app
+org.agentguardian.app
 ```
 
 The running process was also verified to originate from that installed

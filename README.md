@@ -1,6 +1,6 @@
-# Hermes Guardian
+# Agent Guardian
 
-Hermes Guardian is an independent macOS menu-bar sentry for human-approved changes to a Hermes Agent `config.yaml` file, plus read-only visibility into Hermes pending-skill and active-skill filesystem state.
+Agent Guardian is an independent macOS menu-bar sentry for human-approved changes to a Hermes Agent `config.yaml` file, plus read-only visibility into Hermes pending-skill and active-skill filesystem state.
 
 It preserves an exact approved snapshot outside Hermes, detects raw and semantic changes, explains the relevant settings with official Hermes documentation, and waits for a human to accept, review, clarify, or reject the change. Reject restores the last approved bytes immediately.
 
@@ -97,12 +97,12 @@ Build the locally signed menu-bar application:
 ./scripts/build-app.sh
 ```
 
-The bundle is created at `build/Hermes Guardian.app`. The script uses an ad-hoc code signature for local use; it does not notarize the application.
+The bundle is created at `build/Agent Guardian.app`. The script uses an ad-hoc code signature for local use; it does not notarize the application.
 
 After tests, build, and a disposable-file trial pass, install the release bundle in the current user's stable Applications directory:
 
 > [!WARNING]
-> The installer rebuilds release and installs to `~/Applications/Hermes Guardian.app` by default. `HCG_INSTALL_ROOT` changes the destination directory. If an app already exists there, it is moved to `Hermes Guardian.previous.app`; an older app at that backup path is deleted first. Preserve any backup you need before running the installer.
+> The installer rebuilds release and installs to `~/Applications/Agent Guardian.app` by default. `HCG_INSTALL_ROOT` changes the destination directory. If an app already exists there, it is moved to `Agent Guardian.previous.app`; an older app at that backup path is deleted first. Preserve any backup you need before running the installer.
 
 ```sh
 ./scripts/install-app.sh
@@ -160,7 +160,7 @@ open -n \
   --env HCG_AUTO_CLARIFY=0 \
   --env HCG_AUTO_EXPAND_DOCUMENTATION=0 \
   --env HCG_AUTO_EXPAND_REVIEW=0 \
-  "build/Hermes Guardian.app"
+  "build/Agent Guardian.app"
 ```
 
 Click the trial app's shield in the menu bar and confirm that its target is `$trial_dir/config.yaml` before enrolling it. In the same shell, change the dummy value:
@@ -176,7 +176,7 @@ The path overrides select the defaults shown below. `HCG_HERMES_HOME` changes ru
 | Variable | Default when unset |
 | --- | --- |
 | `HCG_TARGET_CONFIG` | `~/.hermes/config.yaml` |
-| `HCG_STATE_DIR` | `~/Library/Application Support/Hermes Config Guardian` |
+| `HCG_STATE_DIR` | `~/Library/Application Support/Agent Guardian` |
 | `HCG_PENDING_SKILLS_DIR` | `~/.hermes/pending/skills` |
 | `HCG_SKILLS_DIR` | `~/.hermes/skills` |
 | `HCG_HERMES_DOCS_DIR` | `~/.hermes/hermes-agent/website/docs` |

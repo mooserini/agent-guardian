@@ -4,7 +4,7 @@ set -euo pipefail
 script_dir="${0:A:h}"
 project_dir="${script_dir:h}"
 configuration="${1:-release}"
-app_dir="${project_dir}/build/Hermes Guardian.app"
+app_dir="${project_dir}/build/Agent Guardian.app"
 icon_source="${project_dir}/Resources/AppIcon.png"
 swift_arguments=()
 plist_name="Info.plist"
@@ -18,7 +18,7 @@ cd "${project_dir}"
 swift build -c "${configuration}" "${swift_arguments[@]}"
 
 mkdir -p "${app_dir}/Contents/MacOS" "${app_dir}/Contents/Resources"
-cp ".build/${configuration}/HermesConfigGuardian" "${app_dir}/Contents/MacOS/HermesConfigGuardian"
+cp ".build/${configuration}/AgentGuardian" "${app_dir}/Contents/MacOS/AgentGuardian"
 cp "Resources/${plist_name}" "${app_dir}/Contents/Info.plist"
 
 if [[ -f "${icon_source}" ]]; then
@@ -36,7 +36,7 @@ if [[ -f "${icon_source}" ]]; then
     iconutil -c icns "${iconset_dir}" -o "${app_dir}/Contents/Resources/AppIcon.icns"
 fi
 
-chmod 755 "${app_dir}/Contents/MacOS/HermesConfigGuardian"
+chmod 755 "${app_dir}/Contents/MacOS/AgentGuardian"
 codesign --force --sign - "${app_dir}"
 
 echo "Built ${app_dir}"

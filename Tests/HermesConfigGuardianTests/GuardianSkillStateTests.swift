@@ -1,6 +1,6 @@
 import XCTest
 @testable import GuardianCore
-@testable import HermesConfigGuardian
+@testable import AgentGuardian
 
 @MainActor
 final class GuardianSkillStateTests: XCTestCase {

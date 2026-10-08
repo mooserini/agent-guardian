@@ -215,7 +215,7 @@ final class GuardianModel: ObservableObject {
             stateDirectory = URL(fileURLWithPath: overriddenState, isDirectory: true)
         } else {
             let support = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-            stateDirectory = support.appendingPathComponent("Hermes Config Guardian", isDirectory: true)
+            stateDirectory = support.appendingPathComponent("Agent Guardian", isDirectory: true)
         }
         attentionMarkerURL = stateDirectory.appendingPathComponent("last-notified-proposal.txt")
         skillAttentionMarkerURL = stateDirectory.appendingPathComponent("last-notified-skill-state.txt")

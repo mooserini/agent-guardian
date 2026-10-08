@@ -1,8 +1,8 @@
-# Hermes Guardian — vNext Candidate Brief
+# Agent Guardian — vNext Candidate Brief
 
 ## Mission
 
-Build a local candidate of the existing **Hermes Config Guardian** macOS menu-bar app. Its user-facing name is now **Hermes Guardian** because its authority boundary has grown beyond one `config.yaml` file.
+Build a local candidate of the existing **Agent Guardian** macOS menu-bar app. Its user-facing name is now **Agent Guardian** because its authority boundary has grown beyond one `config.yaml` file.
 
 This is a narrow extension, not a new product:
 
@@ -28,7 +28,7 @@ Reading the live Hermes skill directories is in scope solely so the app can moni
 
 ## Rename
 
-Rename user-facing app strings from **Hermes Config Guardian** to **Hermes Guardian** wherever that is appropriate for this candidate: visible labels, menu-bar/help text, README, package/app display naming, build artifact naming, and test expectations.
+Rename user-facing app strings from **Agent Guardian** to **Agent Guardian** wherever that is appropriate for this candidate: visible labels, menu-bar/help text, README, package/app display naming, build artifact naming, and test expectations.
 
 Do not casually invalidate existing local Guardian state. Keep the current Application Support state location readable/compatible for this candidate unless a small, verified migration is necessary. If you introduce a new state location, migration must be explicit, one-way-safe, and covered by tests. Prefer compatibility over a cosmetic filesystem rename.
 
