@@ -1,13 +1,16 @@
 # Durable maintenance window
 
-**Implementation status:** available in the macOS application as **Begin
-Hermes update** and **End update and review**. The original design contract is
+**Implementation status:** available in the macOS application as **Update
+maintenance…** (in the **More** menu) and **End update and review**. The original design contract is
 retained below as the behavioral specification.
+
+> [!NOTE]
+> The [receipt-only witness decision](shadow-sepulcher-decision-2026-10-08.md) (2026-10-08) supersedes any part of this design that restores, rewrites, or enforces a watched target.
 
 ## Purpose
 
 Hermes updates and setup flows may rewrite `config.yaml` more than once. A
-Guardian attention signal for every intermediate serialization is noisy and can
+Sepulcher attention signal for every intermediate serialization is noisy and can
 tempt a person to decide while the writer still holds an in-memory copy.
 
 A maintenance window groups those writes into one deliberate human transaction
@@ -17,7 +20,7 @@ without granting the updater approval authority.
 
 The initial Hermes-specific labels are:
 
-- **Begin Hermes update**
+- **Begin Hermes update** (shipped as **Update maintenance…**)
 - **End update and review**
 
 The underlying contract is generic enough to become **Begin maintenance** for
@@ -25,19 +28,19 @@ other guarded files later.
 
 ## Preconditions
 
-Guardian may begin a maintenance window only when:
+Sepulcher may begin a maintenance window only when:
 
 - the watched file exactly matches the approved fingerprint;
 - the approved snapshot can be read and independently rehashed;
 - the YAML parses successfully;
 - no proposal or earlier maintenance window is pending.
 
-Failure of any precondition leaves Guardian in its prior state.
+Failure of any precondition leaves Sepulcher in its prior state.
 
 ## Durable state
 
 Beginning maintenance writes an owner-only manifest and checkpoint into
-Guardian's private state directory:
+Sepulcher's private state directory:
 
 ```text
 maintenance/current.json
@@ -50,12 +53,12 @@ checkpoint filename, and maintenance reason. It never contains credentials or
 configuration values. The checkpoint contains the exact approved bytes and is
 mode `0600`.
 
-This state must survive Guardian crashes, application upgrades, logout, and Mac
+This state must survive Sepulcher crashes, application upgrades, logout, and Mac
 restart. Memory-only maintenance state is not authoritative.
 
 ## Behavior while active
 
-Guardian continues watching and hashing every distinct proposal. It appends
+Sepulcher continues watching and hashing every distinct proposal. It appends
 timestamp and fingerprint metadata to the maintenance observation log, but it
 does not accept any proposal and does not replace the approved snapshot.
 
@@ -70,7 +73,7 @@ maintenance is not permission to hide damage.
 normal debounce interval, then compares the final bytes with the pre-update
 checkpoint.
 
-Guardian presents:
+Sepulcher presents:
 
 - exact fingerprint transition;
 - YAML validity;
@@ -92,11 +95,11 @@ No timeout or successful updater exit automatically accepts the final file.
 ## Compatibility warning
 
 After a Hermes update, the prior configuration may use a retired schema while
-the new file may contain a required migration. Guardian must therefore warn
+the new file may contain a required migration. Sepulcher must therefore warn
 before exact restoration:
 
 > Restoring preserves your pre-update intent and bytes, but the updated Hermes
-> version may no longer accept this schema. Guardian has not proven runtime
+> version may no longer accept this schema. Sepulcher has not proven runtime
 > compatibility.
 
 Future versions may offer a read-only Hermes validation command, but a passing
@@ -104,7 +107,7 @@ validator still does not become approval.
 
 ## Recovery and forgotten windows
 
-On launch, a durable maintenance manifest restores the active state. Guardian
+On launch, a durable maintenance manifest restores the active state. Sepulcher
 does not silently discard it. A visibly active window can be ended normally or
 abandoned only through a human-confirmed action that first performs the same
 final comparison.

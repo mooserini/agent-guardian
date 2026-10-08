@@ -119,7 +119,7 @@ final class GuardianAdversarialTests: XCTestCase {
         model.accept()
 
         guard case let .error(message) = model.status else {
-            return XCTFail("Expected Guardian to refuse stale approval")
+            return XCTFail("Expected Sepulcher to refuse stale approval")
         }
         XCTAssertEqual(message, "The file changed again before approval. Review the newest version.")
         XCTAssertEqual(model.pending?.changes.map(\.path), ["display.tool_progress"])

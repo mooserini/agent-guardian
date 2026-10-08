@@ -6,6 +6,9 @@ It preserves an exact approved snapshot outside Hermes, detects raw and semantic
 
 The design is deliberately small: surface state honestly, reconcile it deterministically, and leave authority with the human.
 
+> [!NOTE]
+> **Direction.** The owner has accepted a [receipt-only witness decision](docs/design/shadow-sepulcher-decision-2026-10-08.md): Shadow Sepulcher should record observed changes and never write to a watched target, and **Restore** becomes **Send for investigation**, an owner-approved, redacted handoff to another agent. That decision is not implemented yet. The behavior described below, including Reject restoring approved bytes, is what the current code does.
+
 > [!IMPORTANT]
 > This is an experimental, independent project. It is not affiliated with or endorsed by Nous Research or the Hermes Agent project.
 
@@ -22,14 +25,14 @@ The design is deliberately small: surface state honestly, reconcile it determini
 - Redacts credential-shaped values even when they appear beneath unfamiliar or misleading setting names.
 - Offers `Accept`, `Review`, `Clarify`, and one-click `Reject` decisions.
 - Plays the built-in macOS `Glass` alert once for each newly detected proposal while changing the menu-bar shield to its attention state; repeated checksum reconciliation stays silent.
-- Invalid YAML exposes only `Clarify` and `Reject`; Guardian shows the isolated unparsed line locally and never permits acceptance.
-- Scalar type changes are called out in Review and receive a deterministic type-safety explanation; Guardian does not ask a model to equate strings, numbers, booleans, or nulls.
+- Invalid YAML exposes only `Clarify` and `Reject`; Sepulcher shows the isolated unparsed line locally and never permits acceptance.
+- Scalar type changes are called out in Review and receive a deterministic type-safety explanation; Sepulcher does not ask a model to equate strings, numbers, booleans, or nulls.
 - Keeps quick decisions in the menu-bar panel and opens the same live state in a resizable window for longer reviews; explanation and evidence overflow stays inside one scrollable details area.
 - Binds clarification to the proposed file hash so a late explanation cannot attach to a newer edit.
 - Uses directory events plus periodic checksum reconciliation; routine checks invoke no model.
-- Brackets intentional Hermes updates with a durable maintenance window: Guardian seals the approved bytes, records distinct intermediate rewrites without bell spam, survives relaunch, and still requires a final human Accept or Reject decision.
+- Brackets intentional Hermes updates with a durable maintenance window: Sepulcher seals the approved bytes, records distinct intermediate rewrites without bell spam, survives relaunch, and still requires a final human Accept or Reject decision.
 
-Guardian currently detects completed writes. It is not a privileged pre-write firewall and cannot prevent another process from briefly writing the watched file before detection.
+Sepulcher currently detects completed writes. It is not a privileged pre-write firewall and cannot prevent another process from briefly writing the watched file before detection.
 
 ## Documentation-grounded clarification
 
@@ -38,8 +41,8 @@ Clarify searches the Hermes documentation installed with the local Hermes build 
 - Only bounded passages matching changed setting paths are given to Hermes' stateless model-call helper.
 - Nous' current free model recommendation for short auxiliary summaries is resolved at call time and used without loading tools, memory, rules, skills, a conversation, or a session.
 - The exact evidence and official source link remain visible beneath the explanation.
-- Guardian reports whether installed and hosted passages agree.
-- If no exact passage is found, Guardian does not ask the model to infer the setting's behavior.
+- Sepulcher reports whether installed and hosted passages agree.
+- If no exact passage is found, Sepulcher does not ask the model to infer the setting's behavior.
 - The hosted corpus is capped at 10 MB, cached for six hours with owner-only permissions, and refreshed using `ETag` and `Last-Modified` validators.
 - Configuration contents are never sent to the documentation server; that request retrieves only public documentation.
 - When the user presses Clarify, the selected inference provider receives bounded documentation excerpts and the redacted semantic changes, not the complete configuration file. Provider retention and training terms may still apply to that payload.
@@ -47,7 +50,7 @@ Clarify searches the Hermes documentation installed with the local Hermes build 
 
 Hermes stateless inference through Nous' current free auxiliary recommendation is the primary explanation rail. Apple's on-device Foundation Model is an optional fallback, followed by deterministic behavior when neither model is available.
 
-Guardian requests the lowest reasoning level supported by the current Nous route and displays that request beside the actual provider/model. If the live catalog reports no reasoning control, Guardian says so rather than pretending it disabled thinking. This keeps the small documentation-translation task bounded without editing Hermes' own configuration or source.
+Sepulcher requests the lowest reasoning level supported by the current Nous route and displays that request beside the actual provider/model. If the live catalog reports no reasoning control, Sepulcher says so rather than pretending it disabled thinking. This keeps the small documentation-translation task bounded without editing Hermes' own configuration or source.
 
 For controlled comparisons, `HCG_HERMES_CLARIFY_PROVIDER` and `HCG_HERMES_CLARIFY_MODEL` may be set together to pin a single stateless clarification route without changing the watched Hermes configuration. Normal use leaves both unset and follows Nous' live free compaction/summarization recommendation.
 
@@ -61,8 +64,8 @@ Build requirements:
 Start from a checkout and confirm the selected toolchain:
 
 ```sh
-git clone https://github.com/mooserini/hermes-config-guardian.git
-cd hermes-config-guardian
+git clone https://github.com/mooserini/shadow-sepulcher.git
+cd shadow-sepulcher
 swift --version
 sw_vers
 ```
@@ -77,7 +80,7 @@ swift package resolve
 
 Build and test commands also resolve dependencies as needed. The explicit resolution step above is suggested setup based on the package configuration; fresh-machine dependency resolution has not yet been validated.
 
-Basic monitoring needs the selected YAML file and Guardian's state directory. Hermes, its Python runtime, and inference credentials are optional runtime requirements for **Hermes-backed Clarify**, rather than build prerequisites. That route needs a Hermes agent directory containing `agent/oneshot.py`, an executable Python runtime (normally its `.venv/bin/python`), and authentication for the inference provider. When that route is unavailable, Guardian can use the optional Apple on-device model where supported, then deterministic fallback explanations.
+Basic monitoring needs the selected YAML file and Sepulcher's state directory. Hermes, its Python runtime, and inference credentials are optional runtime requirements for **Hermes-backed Clarify**, rather than build prerequisites. That route needs a Hermes agent directory containing `agent/oneshot.py`, an executable Python runtime (normally its `.venv/bin/python`), and authentication for the inference provider. When that route is unavailable, Sepulcher can use the optional Apple on-device model where supported, then deterministic fallback explanations.
 
 Run the tests:
 
@@ -97,33 +100,33 @@ Build the locally signed menu-bar application:
 ./scripts/build-app.sh
 ```
 
-The bundle is created at `build/Agent Guardian.app`. The script uses an ad-hoc code signature for local use; it does not notarize the application.
+The bundle is created at `build/Shadow Sepulcher.app`. The script uses an ad-hoc code signature for local use; it does not notarize the application.
 
 After tests, build, and a disposable-file trial pass, install the release bundle in the current user's stable Applications directory:
 
 > [!WARNING]
-> The installer rebuilds release and installs to `~/Applications/Agent Guardian.app` by default. `HCG_INSTALL_ROOT` changes the destination directory. If an app already exists there, it is moved to `Agent Guardian.previous.app`; an older app at that backup path is deleted first. Preserve any backup you need before running the installer.
+> The installer rebuilds release and installs to `~/Applications/Shadow Sepulcher.app` by default. `HCG_INSTALL_ROOT` changes the destination directory. If an app already exists there, it is moved to `Shadow Sepulcher.previous.app`; an older app at that backup path is deleted first. A build installed under the earlier name, `Agent Guardian.app`, is moved to `Agent Guardian.previous.app` the same way so only one copy registers for launch at login. Preserve any backup you need before running the installer.
 
 ```sh
 ./scripts/install-app.sh
 ```
 
 The installed app exposes an explicit **Launch at login** toggle in its
-App Behavior menu. macOS may require the user to approve the login item in System
-Settings. Guardian reports that state instead of treating registration as
+**More › App Behavior** menu. macOS may require the user to approve the login item in System
+Settings. Sepulcher reports that state instead of treating registration as
 successful.
 
 ## Intentional Hermes updates
 
-When Guardian reports a clean approved configuration, select **Update
-maintenance…** before running a Hermes updater or setup flow. Guardian asks
+When Sepulcher reports a clean approved configuration, select **Update
+maintenance…** before running a Hermes updater or setup flow. Sepulcher asks
 for confirmation, then creates a
 verified owner-only checkpoint and visibly enters maintenance mode. It keeps
 watching every distinct rewrite but suppresses repeated sound and window
 interruptions.
 
 After the updater is completely finished, select **End update and review**.
-Guardian compares the final bytes with the sealed checkpoint. It never accepts
+Sepulcher compares the final bytes with the sealed checkpoint. It never accepts
 the result automatically:
 
 - **Accept final version** approves only the final stable proposal.
@@ -131,7 +134,7 @@ the result automatically:
   warns that a newer Hermes build may require a migrated schema.
 - **Keep updating** returns to maintenance without changing either file.
 
-If Guardian, the login session, or the Mac restarts during maintenance, the
+If Sepulcher, the login session, or the Mac restarts during maintenance, the
 checkpoint, start time, and distinct-proposal count are recovered from private
 durable state. When maintenance ends, its manifest and hash-only observation
 log move into owner-only history; the corresponding approval or rejection
@@ -139,7 +142,7 @@ receipt remains the authority for the final decision.
 
 ## Disposable-file trial
 
-After building the app, test with a disposable YAML file and isolated configuration, state, skills, documentation, and runtime paths before pointing Guardian at a real configuration. Overriding only the target file and state directory leaves the other paths at their normal Hermes defaults.
+After building the app, test with a disposable YAML file and isolated configuration, state, skills, documentation, and runtime paths before pointing Sepulcher at a real configuration. Overriding only the target file and state directory leaves the other paths at their normal Hermes defaults.
 
 ```sh
 trial_dir=$(mktemp -d "${TMPDIR:-/tmp}/hermes-guardian-trial.XXXXXX")
@@ -160,7 +163,7 @@ open -n \
   --env HCG_AUTO_CLARIFY=0 \
   --env HCG_AUTO_EXPAND_DOCUMENTATION=0 \
   --env HCG_AUTO_EXPAND_REVIEW=0 \
-  "build/Agent Guardian.app"
+  "build/Shadow Sepulcher.app"
 ```
 
 Click the trial app's shield in the menu bar and confirm that its target is `$trial_dir/config.yaml` before enrolling it. In the same shell, change the dummy value:
@@ -169,14 +172,14 @@ Click the trial app's shield in the menu bar and confirm that its target is `$tr
 printf 'dummy_key: changed\n' > "$trial_dir/config.yaml"
 ```
 
-Reopen the trial shield. Guardian should show the changed path and four decision buttons. Quit the trial instance when finished. The trial files remain available for inspection; this example does not delete them. The empty documentation directory and nonexistent runtime paths keep Hermes-backed inference unavailable during this monitoring trial.
+Reopen the trial shield. Sepulcher should show the changed path and four decision buttons. Quit the trial instance when finished. The trial files remain available for inspection; this example does not delete them. The empty documentation directory and nonexistent runtime paths keep Hermes-backed inference unavailable during this monitoring trial.
 
-The path overrides select the defaults shown below. `HCG_HERMES_HOME` changes runtime discovery defaults; it does not redirect the target configuration, Guardian state, skills, or documentation paths.
+The path overrides select the defaults shown below. `HCG_HERMES_HOME` changes runtime discovery defaults; it does not redirect the target configuration, Sepulcher state, skills, or documentation paths.
 
 | Variable | Default when unset |
 | --- | --- |
 | `HCG_TARGET_CONFIG` | `~/.hermes/config.yaml` |
-| `HCG_STATE_DIR` | `~/Library/Application Support/Agent Guardian` |
+| `HCG_STATE_DIR` | `~/Library/Application Support/Agent Guardian` (the earlier name is kept so existing approvals and receipts carry over) |
 | `HCG_PENDING_SKILLS_DIR` | `~/.hermes/pending/skills` |
 | `HCG_SKILLS_DIR` | `~/.hermes/skills` |
 | `HCG_HERMES_DOCS_DIR` | `~/.hermes/hermes-agent/website/docs` |
@@ -216,13 +219,15 @@ The evidence and limits from the first trial against a real Hermes configuration
 
 ## Roadmap
 
-This candidate adds read-only pending-skill and active-skills integrity indicators without granting Guardian authority to approve, reject, restore, or edit skills. Configuration approval remains a separate human decision.
+The next direction is the [receipt-only witness and investigation handoff](docs/design/shadow-sepulcher-decision-2026-10-08.md). It supersedes the restore-based parts of the maintenance window and Phase 2 designs below.
+
+The current build adds read-only pending-skill and active-skills integrity indicators without granting Sepulcher authority to approve, reject, restore, or edit skills. Configuration approval remains a separate human decision.
 
 The implemented [durable maintenance window](docs/design/durable-maintenance-window.md) groups the many writes made by an intentional Hermes update into one final human review without granting the updater automatic approval.
 
 ## Runtime privacy
 
-Guardian's state directory contains approved configuration bytes, watched-file paths, hashes, and receipts. Treat that directory as private runtime data. Do not commit or publish it.
+Sepulcher's state directory contains approved configuration bytes, watched-file paths, hashes, and receipts. Treat that directory as private runtime data. Do not commit or publish it.
 
 ## License
 

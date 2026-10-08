@@ -2,9 +2,12 @@
 
 Status: staged (design only, not implemented).
 
+> [!NOTE]
+> The [receipt-only witness decision](shadow-sepulcher-decision-2026-10-08.md) (2026-10-08) supersedes any part of this design that restores, rewrites, or enforces a watched target.
+
 ## Goal
 
-Agent Guardian stops knowing only about Hermes paths and learns to watch
+Shadow Sepulcher stops knowing only about Hermes paths and learns to watch
 anything enrolled. Every change to a watched file gets a tamper-evident
 changelog entry: timestamp, SHA-before, SHA-after. The watcher never writes
 to what it watches.
@@ -59,7 +62,7 @@ produces exactly one entry:
 
 Rules:
 
-- The changelog lives in the Guardian's own state directory. It is never
+- The changelog lives in Sepulcher's own state directory. It is never
   written into a watched file or directory.
 - Entries are append-only. No editing, no deleting. If an entry is wrong,
   a correcting entry follows it.
@@ -72,13 +75,13 @@ Rules:
 
 ## 3. Safety properties
 
-- **Read-only watcher.** The Guardian never writes to, moves, or deletes
+- **Read-only watcher.** Sepulcher never writes to, moves, or deletes
   a watched target. It reads, snapshots, and logs. This is what keeps it
   outside every other system's sentinel logic: there is no write to flag.
-- **Separate ledger.** All Guardian writes go to its own state: the
+- **Separate ledger.** All Sepulcher writes go to its own state: the
   changelog, snapshots, pending approvals. Watched files are never a
   write destination.
-- **No inference.** A changed file is reported as changed. The Guardian
+- **No inference.** A changed file is reported as changed. Sepulcher
   does not guess why, who, or whether it matters. Triage is the human's.
 - **Approval stays.** The existing approve/reject snapshot machinery is
   unchanged; it now operates over enrolled targets instead of hardcoded
@@ -104,7 +107,7 @@ source changes.
   explanation ("3 lines added, 1 removed in `~/AGENTS.md`"). No model
   involved.
 - **Tier 2 — grounded.** For Hermes config, grounding meant installed vs.
-  hosted Hermes docs. For Agent Guardian, grounding is the watched file's
+  hosted Hermes docs. For Shadow Sepulcher, grounding is the watched file's
   own history plus the diff itself. There is no hosted doc to compare
   against; the file's past is the reference.
 - **Tier 3 — LLM, provider-agnostic.** A stateless request goes out —
@@ -134,7 +137,7 @@ no tools loaded, no history written, secrets never in the process arg list.
 
 ## 6. Open questions
 
-- Where does `watchlist.yaml` live? Candidate: `~/.agent-guardian/watchlist.yaml`.
+- Where does `watchlist.yaml` live? Candidate: `~/.shadow-sepulcher/watchlist.yaml`.
 - Should enrollment of a new target require explicit approval, or is
   editing the YAML enough?
 - Changelog retention: bound it (e.g. rotate yearly), or unbounded?

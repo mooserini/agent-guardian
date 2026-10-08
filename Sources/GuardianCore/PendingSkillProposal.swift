@@ -75,7 +75,7 @@ public enum PendingSkillProposalReader: Sendable {
                 issue: nil
             )
         } catch {
-            return unreadable(id: fallbackID, issue: "Guardian could not read this pending record.")
+            return unreadable(id: fallbackID, issue: "Sepulcher could not read this pending record.")
         }
     }
 

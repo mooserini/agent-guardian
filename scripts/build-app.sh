@@ -4,7 +4,7 @@ set -euo pipefail
 script_dir="${0:A:h}"
 project_dir="${script_dir:h}"
 configuration="${1:-release}"
-app_dir="${project_dir}/build/Agent Guardian.app"
+app_dir="${project_dir}/build/Shadow Sepulcher.app"
 icon_source="${project_dir}/Resources/AppIcon.png"
 swift_arguments=()
 plist_name="Info.plist"

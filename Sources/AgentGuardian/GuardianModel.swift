@@ -59,7 +59,7 @@ final class GuardianModel: ObservableObject {
                     ? "File rewrite needs attention"
                     : "\(count) change\(count == 1 ? " needs" : "s need") attention"
             case .invalid: return "Configuration is invalid"
-            case .error: return "Guardian needs attention"
+            case .error: return "Sepulcher needs attention"
             }
         }
 
@@ -328,7 +328,7 @@ final class GuardianModel: ObservableObject {
         case .enabled:
             launchAtLoginEnabled = true
             launchAtLoginNeedsApproval = false
-            launchAtLoginMessage = "Guardian will start when you log in."
+            launchAtLoginMessage = "Sepulcher will start when you log in."
         case .requiresApproval:
             launchAtLoginEnabled = false
             launchAtLoginNeedsApproval = true
@@ -340,7 +340,7 @@ final class GuardianModel: ObservableObject {
         case .notFound:
             launchAtLoginEnabled = false
             launchAtLoginNeedsApproval = false
-            launchAtLoginMessage = "Install Guardian in Applications before enabling launch at login."
+            launchAtLoginMessage = "Install Shadow Sepulcher in Applications before enabling launch at login."
         @unknown default:
             launchAtLoginEnabled = false
             launchAtLoginNeedsApproval = false
@@ -591,7 +591,7 @@ final class GuardianModel: ObservableObject {
                 explanation = verified
             } else if documentation.excerpts.isEmpty {
                 explanation = Self.deterministicExplanation(for: pending, modelFailure: nil)
-                    + " No exact official documentation passage was found, so Guardian did not ask the model to infer behavior."
+                    + " No exact official documentation passage was found, so Sepulcher did not ask the model to infer behavior."
             } else {
                 let request = Self.clarificationRequest(for: pending, documentation: documentation)
                 let result = await explain(request: request, pending: pending)
@@ -946,7 +946,7 @@ final class GuardianModel: ObservableObject {
             return "The changed file is not valid YAML, so it cannot be accepted. \(validationError)"
         }
         if pending.changes.isEmpty {
-            return "The file’s bytes changed, but Guardian found no configuration setting changes after parsing the YAML. There are no changed setting paths to review. Accept approves the rewritten byte layout; Reject restores the exact approved bytes."
+            return "The file’s bytes changed, but Sepulcher found no configuration setting changes after parsing the YAML. There are no changed setting paths to review. Accept approves the rewritten byte layout; Reject restores the exact approved bytes."
         }
         let affectedRoots = Set(pending.changes.compactMap { $0.path.split(separator: ".").first.map(String.init) }).sorted()
         var text = "The proposal changes \(pending.changes.count) setting\(pending.changes.count == 1 ? "" : "s")"
